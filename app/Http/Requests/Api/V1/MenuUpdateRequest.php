@@ -29,6 +29,7 @@ class MenuUpdateRequest extends FormRequest
             'description' => ['string', 'sometimes'],
             'tag' => ['string', 'sometimes'],
             'price' => ['numeric', 'sometimes'],
+            'is_active' => ['boolean', 'sometimes'],
         ];
     }
     

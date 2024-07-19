@@ -58,7 +58,7 @@ class BusinessController extends Controller
         if ($res !== null) {
             return $this->successResponse($res);
         }
-        return $this->serverErrorResponse('An error occurred.');
+        return $this->notFoundResponse('Business not found!!');
     }
 
     public function find(string $short_name)
@@ -67,7 +67,7 @@ class BusinessController extends Controller
         if ($res !== null) {
             return $this->successResponse($res);
         }
-        return $this->serverErrorResponse('Business not found!!');
+        return $this->notFoundResponse('Business not found!!');
     }
 
     /**

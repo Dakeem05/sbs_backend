@@ -44,9 +44,9 @@ class MenuService
         return $menu;  
     }
 
-    public function show (Int $id)
+    public function show (String $uuid)
     {
-        $menu = menu::where('id', $id)->with('menus')->first();
+        $menu = menu::where('uuid', $uuid)->first();
         return $menu;
     }
     
@@ -56,9 +56,9 @@ class MenuService
         return $menu;
     }
 
-    public function update (Object $request, Int $id)
+    public function update (Object $request, String $uuid)
     {
-        $menu = menu::where('id', $id)->first();
+        $menu = menu::where('uuid', $uuid)->first();
         if ($menu !== null) {
             $contains_image = false;
             $path = '';
@@ -73,12 +73,10 @@ class MenuService
 
             $menu->update([
                 'name' => isset($request->name)? $request->name : $menu->name,
-                'short_name' => isset($request->short_name)? $request->short_name : $menu->short_name,
-                'email' => isset($request->email)? $request->email : $menu->email,
-                'phone' => isset($request->phone)? $request->phone : $menu->phone,
-                'address' => isset($request->address)? $request->address : $menu->address,
-                'is_active' => isset($request->is_active)? $request->is_active : $menu->is_active,
-                'country' => isset($request->country)? $request->country : $menu->country,
+                'is_available' => isset($request->is_available)? $request->is_available : $menu->is_available,
+                'description' => isset($request->description)? $request->description : $menu->description,
+                'tag' => isset($request->tag)? $request->tag : $menu->tag,
+                'price' => isset($request->price)? $request->price : $menu->price,
                 'image' => $contains_image ? $path : $menu->image,
             ]);
             return true;
@@ -86,9 +84,9 @@ class MenuService
         return false; 
     }
 
-    public function delete (Int $id)
+    public function delete (String $uuid)
     {
-        $menu = menu::find($id);
+        $menu = menu::findByUuid($uuid);
         if ($menu !== null) {
             $menu->forceDelete();
             return true;

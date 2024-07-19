@@ -20,8 +20,10 @@ Route::middleware('isAuthenticated')->group(function () {
     });
 
     Route::prefix('menu')->group(function () {
-        Route::resource('', MenuController::class);
-        Route::post('/update/{uuid}', [MenuController::class, 'update']);
-        Route::get('/find/{business_uuid}', [MenuController::class, 'index']);
+        Route::get('/{business_uuid}', [MenuController::class, 'index']);
+        Route::post('', [MenuController::class, 'store']);
+        Route::get('/show/{uuid}', [MenuController::class, 'show']);
+        Route::post('/{uuid}', [MenuController::class, 'update']);
+        Route::delete('/{uuid}', [MenuController::class, 'destroy']);
     });    
 });
