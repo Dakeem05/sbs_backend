@@ -9,10 +9,12 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Laravel\Sanctum\HasApiTokens;
+use PHPOpenSourceSaver\JWTAuth\Contracts\JWTSubject;
 
-class User extends Authenticatable
+class User extends Authenticatable implements JWTSubject
 {
-    use HasFactory, Notifiable, SoftDeletes, CreateUuid;
+    use HasFactory, Notifiable, SoftDeletes, CreateUuid, HasApiTokens;
 
     /**
      * The attributes that are mass assignable.
@@ -29,12 +31,6 @@ class User extends Authenticatable
         'created_at',
         'updated_at',
         'deleted_at'
-    ];
-
-    protected $fillable = [
-        'name',
-        'email',
-        'password',
     ];
 
     /**
@@ -54,5 +50,20 @@ class User extends Authenticatable
             'password' => 'hashed',
             'metadata' => 'object',
         ];
+    }
+
+    public function getJWTIdentifier()
+    {
+        return $this->getKey();
+    }
+
+    /**
+     * Return a key value array, containing any custom claims to be added to the JWT.
+     *
+     * @return array
+     */
+    public function getJWTCustomClaims()
+    {
+        return [];
     }
 }

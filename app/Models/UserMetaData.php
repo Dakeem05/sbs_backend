@@ -12,4 +12,8 @@ class UserMetaData extends Model
     use HasFactory, SoftDeletes, CreateUuid;
 
     protected $guarded = [];
+
+    protected $casts = [
+        'metadata' => 'object'
+    ];
 }

@@ -19,10 +19,12 @@ return new class extends Migration
             $table->string('short_name')->unique();
             $table->string('address');
             $table->string('country');
-            $table->string('username');
+            $table->string('username')->nullable();
+            $table->string('image')->nullable();
             $table->boolean('is_active')->default(true);
             $table->string('email')->unique();
             $table->string('phone');
+            $table->json('metadata')->nullable();
             $table->timestamps();
         });
     }

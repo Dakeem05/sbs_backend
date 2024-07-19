@@ -19,9 +19,10 @@ return new class extends Migration
             $table->string('code')->unique();
             $table->longText('description')->nullable();
             $table->string('tag')->nullable();
-            $table->boolean('is_active')->default(true);
-            $table->float('amount', '16', 2);
+            $table->boolean('is_available')->default(true);
+            $table->double('price');
             $table->string('image')->nullable();
+            $table->json('metadata')->nullable();
             $table->softDeletes()->index();
             $table->timestamps();
         });
